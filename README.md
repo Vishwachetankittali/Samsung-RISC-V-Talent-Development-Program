@@ -1,4 +1,4 @@
-# samsung-riscv
+#Samsung RISC-V Talent Development Program
 
 Name: Vishwachetan Kittali  
 College: New Horizon college of Engineering  
