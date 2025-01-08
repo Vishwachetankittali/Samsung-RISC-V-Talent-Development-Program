@@ -12,7 +12,7 @@
 
 ## Tasks
 
-### [Task 1]()
+### [Task 1](https://github.com/Vishwachetankittali/Samsung-RISC-V-Talent-Development-Program/tree/main/task%201)
 **Description:** Refer to C-based and RISC-V-based lab videos to:
 
 - Compile C code using `gcc`.
