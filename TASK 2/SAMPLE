@@ -10,8 +10,8 @@ until and reg to observe the program's behavior at runtime.
 Disassembly Analysis:
 
 The disassembly reveals the low-level instructions that the compiler generated for the C code.
-It shows fragments of the main function, including instructions for loading immediate values, adjusting the stack pointer,
-performing arithmetic operations, calling the printf function, 
+It shows fragments of the main function, including instructions for loading immediate values, 
+adjusting the stack pointer,performing arithmetic operations, calling the printf function, 
 and managing the function's return. The disassembly also shows part of the register_fini function,
 which is likely responsible for cleaning up resources before program termination. From the assembly code,
 one can gain an understanding of how the compiler translates high-level C constructs into the underlying machine 
