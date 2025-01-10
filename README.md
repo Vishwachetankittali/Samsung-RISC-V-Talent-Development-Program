@@ -18,7 +18,7 @@
 - Compile C code using `gcc`.
 - Compile and count the number of instructions used in `o1` and `ofast` using the RISC-V compiler.
 
-### [Task 2](https://github.com/Vishwachetankittali/Samsung-RISC-V-Talent-Development-Program/tree/main/task%201)
+### [Task 2](https://github.com/Vishwachetankittali/Samsung-RISC-V-Talent-Development-Program/tree/main/TASK%202)
 **Description:** In this task, you will explore the compilation process for both standard C and RISC-V architecture:
 
 - Compile a simple C program using the `gcc` compiler.
