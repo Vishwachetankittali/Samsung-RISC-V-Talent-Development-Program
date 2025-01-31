@@ -70,4 +70,4 @@ The **3-bit binary (B2 B1 B0)** is converted into **Gray code (G2 G1 G0)** using
 ---
 
 # Circuit Connection
-![Alt Text](Snapshots/bgcircuitconnection.png)
+![Alt Text](binary_to_grey_circuit_connection.png)
