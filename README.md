@@ -58,3 +58,22 @@ This task involves performing a functional simulation of a given RISC-V Core Ver
  **3. Run Functional Simulation**  
  **4. Capture Waveforms**  
 **5. Documentation to repository**  
+
+### [Task 5: Implementation of 3-bit Binary to Gray Code Converter using VSDSquadron Mini](https://github.com/Vishwachetankittali/Samsung-RISC-V-Talent-Development-Program/tree/main/TASK%205)
+
+**Description**:   
+This task involves implementing a **3-bit Binary to Gray Code Converter** using the **VSDSquadron Mini (RISC-V-based SoC)**. The system takes a 3-bit binary number as input from push buttons, processes the conversion using **XOR logic**, and displays the Gray code output on LEDs. The objective is to utilize **GPIO operations** for real-time digital logic applications.  
+
+ **Objectives**  
+- Implement a **3-bit Binary to Gray Code Converter** on the **VSDSquadron Mini**.  
+- Utilize **GPIO** for reading push button inputs and driving LED outputs.  
+- Apply **XOR logic** to compute the Gray code equivalent.  
+- Verify correct operation by comparing the LED outputs to the expected Gray code.  
+
+#### Steps  
+1. **Circuit Setup** – Connect push buttons for binary input and LEDs for Gray code output.  
+2. **GPIO Configuration** – Initialize and configure GPIO pins for input and output.  
+3. **Gray Code Conversion Logic** – Implement XOR-based conversion in RISC-V firmware.  
+4. **Testing & Verification** – Check the LED outputs against expected Gray code values.  
+5. **Documentation to Repository** – Upload circuit schematics, firmware code, and results to GitHub.  
+
