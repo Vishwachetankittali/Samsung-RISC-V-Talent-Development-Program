@@ -1,0 +1,41 @@
+#define TRIG_PIN 3  // Ultrasonic sensor Trigger pin connected to D3
+#define ECHO_PIN 2  // Ultrasonic sensor Echo pin connected to D2
+#define BUZZER_PIN 4 // Active Buzzer connected to D4
+
+void setup() {
+    pinMode(TRIG_PIN, OUTPUT);
+    pinMode(ECHO_PIN, INPUT);
+    pinMode(BUZZER_PIN, OUTPUT);
+    Serial.begin(9600);
+}
+
+void loop() {
+    long duration;
+    int distance;
+
+    // Send a 10-microsecond pulse to trigger the ultrasonic sensor
+    digitalWrite(TRIG_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG_PIN, LOW);
+
+    // Read the echo response time
+    duration = pulseIn(ECHO_PIN, HIGH);
+
+    // Convert the time into distance (in cm)
+    distance = duration * 0.034 / 2;
+
+    Serial.print("Distance: ");
+    Serial.print(distance);
+    Serial.println(" cm");
+
+    // Check distance and activate buzzer accordingly
+    if (distance > 0 && distance <= 50) {
+        digitalWrite(BUZZER_PIN, HIGH); // Turn on buzzer if obstacle is within 50 cm
+    } else {
+        digitalWrite(BUZZER_PIN, LOW); // Turn off buzzer otherwise
+    }
+
+    delay(100); // Small delay to avoid excessive processing
+}
