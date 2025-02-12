@@ -147,7 +147,7 @@ Your contributions are **highly appreciated!** 🚀
 ---
 
 ## Circuit Diagram
-![Alt Text](Snapshots_(Ultrasonic_Obstacle_Detection_Circuit)/Ultrasonic_Obstacle_Detection_Circuit.PNG)
+![Alt Text](Ultrasonic_Obstacle_Detection_Circuit.PNG)
 
 
 ---
