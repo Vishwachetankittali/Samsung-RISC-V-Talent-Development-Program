@@ -59,21 +59,22 @@ This task involves performing a functional simulation of a given RISC-V Core Ver
  **4. Capture Waveforms**  
 **5. Documentation to repository**  
 
-### [Task 5: Implementation of 3-bit Binary to Gray Code Converter using VSDSquadron Mini](https://github.com/Vishwachetankittali/Samsung-RISC-V-Talent-Development-Program/tree/main/TASK%205)
+### [Task 5: Ultrasonic Obstacle Detection Circuit using VSD_Squadron-MINI](https://github.com/Vishwachetankittali/Samsung-RISC-V-Talent-Development-Program/tree/main/TASK%205)
 
-**Description**:   
-This task involves implementing a **3-bit Binary to Gray Code Converter** using the **VSDSquadron Mini (RISC-V-based SoC)**. The system takes a 3-bit binary number as input from push buttons, processes the conversion using **XOR logic**, and displays the Gray code output on LEDs. The objective is to utilize **GPIO operations** for real-time digital logic applications.  
+**Description:**
+This task involves implementing an **Ultrasonic Obstacle Detection Circuit** using the **VSD_Squadron-MINI** (RISC-V-based SoC). The system utilizes an **HC-SR04 ultrasonic sensor** to measure distance and an **active buzzer** to provide alerts based on obstacle proximity. If an object is detected **within 50 cm**, the buzzer is activated, enhancing real-time obstacle awareness.
 
- **Objectives**  
-- Implement a **3-bit Binary to Gray Code Converter** on the **VSDSquadron Mini**.  
-- Utilize **GPIO** for reading push button inputs and driving LED outputs.  
-- Apply **XOR logic** to compute the Gray code equivalent.  
-- Verify correct operation by comparing the LED outputs to the expected Gray code.  
+**Objectives:**
+- Implement an **Ultrasonic Obstacle Detection Circuit** on the **VSD_Squadron-MINI**.
+- Use the **HC-SR04 ultrasonic sensor** to measure distances.
+- Process sensor data and trigger an **active buzzer** based on obstacle proximity.
+- Ensure real-time distance detection and alert functionality.
 
-#### Steps  
-1. **Circuit Setup** – Connect push buttons for binary input and LEDs for Gray code output.  
-2. **GPIO Configuration** – Initialize and configure GPIO pins for input and output.  
-3. **Gray Code Conversion Logic** – Implement XOR-based conversion in RISC-V firmware.  
-4. **Testing & Verification** – Check the LED outputs against expected Gray code values.  
-5. **Documentation to Repository** – Upload circuit schematics, firmware code, and results to GitHub.  
+#### Steps:
+1. **Circuit Setup** – Connect **HC-SR04** for distance measurement and **buzzer** for alerts.
+2. **GPIO Configuration** – Initialize and configure GPIO pins for **sensor input and buzzer output**.
+3. **Distance Measurement Logic** – Implement obstacle detection using **time-of-flight calculations**.
+4. **Buzzer Activation** – Trigger the buzzer **when an obstacle is within 50 cm**.
+5. **Testing & Verification** – Validate system functionality with real-world obstacles.
+6. **Documentation to Repository** – Upload circuit schematics, firmware code, and results to **GitHub**.
 
