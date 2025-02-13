@@ -78,3 +78,21 @@ This task involves implementing an **Ultrasonic Obstacle Detection Circuit** usi
 5. **Testing & Verification** – Validate system functionality with real-world obstacles.
 6. **Documentation to Repository** – Upload circuit schematics, firmware code, and results to **GitHub**.
 
+### [Task 6: Final Code Submission & Application Demo](https://github.com/Vishwachetankittali/Samsung-RISC-V-Talent-Development-Program/tree/main/TASK%206)  
+
+**Description**  
+This task involves submitting the complete working code and a demonstration video showcasing the application on the **VSD_Squadron-MINI (RISC-V-based SoC)**.  
+
+**Objectives:**
+- Upload the final code and documentation to **GitHub**.  
+- Record and submit a **demo video** of the working application.  
+- Validate the **functionality** in real-world conditions.  
+
+#### Steps  
+1. **Code Finalization** – Review, optimize, and document the firmware.  
+2. **GitHub Submission** – Upload code, circuit schematics, and explanations.  
+3. **Demo Video** – Record and submit a clear demonstration of the system.  
+4. **Final Submission** – Share the **GitHub repository link** and **video** as per guidelines.  
+
+### Goal  
+To successfully complete the project by providing a **working implementation of RISC-V technology,** showcasing practical applications, and enabling knowledge sharing through proper documentation and demonstration.
