@@ -59,7 +59,7 @@ The **active buzzer** is connected to the **VSD_Squadron-MINI-BOARD** as follows
 
 
 ## Circuit Diagram
-![Alt Text](Ultrasonic_Obstacle_Detection_Circuit.PNG)
+![Alt Text](Ultrasonic_Obstacle_Detection_Circuit_2.PNG)
 
 
 
