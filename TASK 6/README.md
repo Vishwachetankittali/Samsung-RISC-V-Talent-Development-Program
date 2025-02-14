@@ -111,25 +111,25 @@ int main(void) {
 - This project provides a **cost-effective, real-time obstacle detection solution** for visually impaired users, enhancing their **mobility and safety**.  
 
 
-## Expected Output
+### Expected Output
 
-### Scenario 1: No Object Detected
+#### Scenario 1: No Object Detected
 - Distance = 0 cm
 - Buzzer: OFF (No sound)
 
-### Scenario 2: Object Very Close (< 10 cm)
+#### Scenario 2: Object Very Close (< 10 cm)
 - Distance = 5 cm
 - Buzzer: Continuous Beep (ON)
 
-### Scenario 3: Object at Medium Distance (10 - 30 cm)
+#### Scenario 3: Object at Medium Distance (10 - 30 cm)
 - Distance = 20 cm
 - Buzzer:  Beeping (500ms ON, 500ms OFF)
 
-### Scenario 4: Object Far (> 30 cm)
+#### Scenario 4: Object Far (> 30 cm)
 - Distance = 40 cm
 - Buzzer:  OFF (No sound)
 
-### Scenario 5: Object Removed from Range
+#### Scenario 5: Object Removed from Range
 - Distance = 0 cm
 - Buzzer: OFF (No sound)
 
