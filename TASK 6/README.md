@@ -118,7 +118,7 @@ int main(void) {
 - Buzzer: OFF (No sound)
 
 #### Scenario 2: Object Very Close (< 10 cm)
-- Distance = 5 cm
+- Distance = 10 cm
 - Buzzer: Continuous Beep (ON)
 
 #### Scenario 3: Object at Medium Distance (10 - 30 cm)
@@ -130,7 +130,7 @@ int main(void) {
 - Buzzer:  OFF (No sound)
 
 #### Scenario 5: Object Removed from Range
-- Distance = 0 cm
+- Distance = "not mentionable"
 - Buzzer: OFF (No sound)
 
 ## **Future Enhancements**  
