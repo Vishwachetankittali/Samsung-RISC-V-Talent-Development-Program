@@ -1,116 +1,94 @@
 #include <ch32v00x.h>
-#include <debug.h>
 
-#define TRIG_GPIO_PORT GPIOD
-#define TRIG_GPIO_PIN GPIO_Pin_3
-#define ECHO_GPIO_PORT GPIOD
-#define ECHO_GPIO_PIN GPIO_Pin_2
-#define BUZZER_GPIO_PORT GPIOD
-#define BUZZER_GPIO_PIN GPIO_Pin_4
+#define TRIG_PIN GPIO_Pin_2
+#define ECHO_PIN GPIO_Pin_3
+#define TRIG_PORT GPIOD
+#define ECHO_PORT GPIOD
 
-#define TRIG_CLOCK_ENABLE RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE)
-#define ECHO_CLOCK_ENABLE RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE)
-#define BUZZER_CLOCK_ENABLE RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE)
+#define BUZZER_PIN GPIO_Pin_4
+#define BUZZER_PORT GPIOD
 
-void Timer2_Init(void);
-uint32_t Measure_Distance(void);
+void GPIO_Config(void) {
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
 
-int main(void)
-{
-    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
-    SystemCoreClockUpdate();
-    Delay_Ms(100); // Use SDK's delay function
-    Timer2_Init(); // Initialize TIM2 for measuring echo pulse width
+    GPIO_InitTypeDef GPIO_InitStructure;
 
-    GPIO_InitTypeDef GPIO_InitStructure = {0};
-
-    // Configure Trigger pin as Output
-    TRIG_CLOCK_ENABLE;
-    GPIO_InitStructure.GPIO_Pin = TRIG_GPIO_PIN;
+    GPIO_InitStructure.GPIO_Pin = TRIG_PIN;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(TRIG_GPIO_PORT, &GPIO_InitStructure);
+    GPIO_Init(TRIG_PORT, &GPIO_InitStructure);
 
-    // Configure Echo pin as Input
-    ECHO_CLOCK_ENABLE;
-    GPIO_InitStructure.GPIO_Pin = ECHO_GPIO_PIN;
+    GPIO_InitStructure.GPIO_Pin = ECHO_PIN;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(ECHO_GPIO_PORT, &GPIO_InitStructure);
+    GPIO_Init(ECHO_PORT, &GPIO_InitStructure);
 
-    // Configure Buzzer pin as Output
-    BUZZER_CLOCK_ENABLE;
-    GPIO_InitStructure.GPIO_Pin = BUZZER_GPIO_PIN;
+    GPIO_InitStructure.GPIO_Pin = BUZZER_PIN;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(BUZZER_GPIO_PORT, &GPIO_InitStructure);
-
-    while (1)
-    {
-        uint32_t distance = Measure_Distance();
-        printf("Distance: %lu cm\r\n", distance);
-
-        if (distance > 0 && distance <= 50)
-        {
-            GPIO_SetBits(BUZZER_GPIO_PORT, BUZZER_GPIO_PIN); // Activate buzzer
-        }
-        else
-        {
-            GPIO_ResetBits(BUZZER_GPIO_PORT, BUZZER_GPIO_PIN); // Deactivate buzzer
-        }
-
-        Delay_Ms(100); // Use SDK's delay function
-    }
+    GPIO_Init(BUZZER_PORT, &GPIO_InitStructure);
 }
 
-// Measure distance using Timer2 (TIM2)
-uint32_t Measure_Distance(void)
-{
+uint32_t get_distance() {
     uint32_t duration, distance;
 
-    // Send trigger pulse
-    GPIO_ResetBits(TRIG_GPIO_PORT, TRIG_GPIO_PIN);
-    Delay_Us(2);  // Use SDK's delay function
-    GPIO_SetBits(TRIG_GPIO_PORT, TRIG_GPIO_PIN);
-    Delay_Us(10); // Use SDK's delay function
-    GPIO_ResetBits(TRIG_GPIO_PORT, TRIG_GPIO_PIN);
+    // Send a 10us pulse to trigger the ultrasonic sensor
+    GPIO_SetBits(TRIG_PORT, TRIG_PIN);
+    Delay_Us(10);
+    GPIO_ResetBits(TRIG_PORT, TRIG_PIN);
 
-    // Wait for Echo pin to go HIGH
-    while (!GPIO_ReadInputDataBit(ECHO_GPIO_PORT, ECHO_GPIO_PIN));
+    // Wait for the echo signal to go HIGH
+    while (GPIO_ReadInputDataBit(ECHO_PORT, ECHO_PIN) == RESET);
 
-    TIM2->CNT = 0;            // Reset counter
-    TIM2->CTLR1 |= 0x0001;    // Start Timer (Bit 0 of CTLR1)
+    // Measure the duration of the HIGH pulse
+    duration = 0;
+    while (GPIO_ReadInputDataBit(ECHO_PORT, ECHO_PIN) == SET) {
+        duration++;
+        Delay_Us(1);
+        
+        // Prevent infinite loop if no valid signal is received
+        if (duration > 30000) {  
+            return 0;  // Return 0 if no object is detected
+        }
+    }
 
-    // Wait for Echo pin to go LOW
-    while (GPIO_ReadInputDataBit(ECHO_GPIO_PORT, ECHO_GPIO_PIN));
+    // Convert duration to distance (in cm)
+    distance = (duration * 0.0343) / 2;
 
-    TIM2->CTLR1 &= ~0x0001;   // Stop Timer (Bit 0 of CTLR1)
-    duration = TIM2->CNT;     // Read the captured count
-
-    // Convert time (duration) to distance
-    distance = (duration * 0.034) / 2; // Distance in cm
+    // Ignore noisy readings beyond 200 cm
+    if (distance > 200) {
+        return 0;
+    }
 
     return distance;
 }
 
-// Timer 2 Initialization for Pulse Measurement
-void Timer2_Init(void)
-{
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+void buzzer_alert(uint32_t distance) {
+    if (distance == 0) {  // No object detected
+        GPIO_ResetBits(BUZZER_PORT, BUZZER_PIN);
+        return;
+    }
 
-    TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure = {0};
-    TIM_TimeBaseStructure.TIM_Period = 0xFFFF;
-    TIM_TimeBaseStructure.TIM_Prescaler = SystemCoreClock / 1000000 - 1; // 1µs per count
-    TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
-
-    TIM_Cmd(TIM2, DISABLE); // Keep Timer disabled initially
+    if (distance < 10) {  // Close object: Continuous beep
+        GPIO_SetBits(BUZZER_PORT, BUZZER_PIN);
+        Delay_Ms(500);
+    } else if (distance >= 10 && distance <= 30) {  // Medium range: Beep intermittently
+        GPIO_SetBits(BUZZER_PORT, BUZZER_PIN);
+        Delay_Ms(500);
+        GPIO_ResetBits(BUZZER_PORT, BUZZER_PIN);
+        Delay_Ms(500);
+    } else {  // Far object: No sound
+        GPIO_ResetBits(BUZZER_PORT, BUZZER_PIN);
+    }
 }
 
-void NMI_Handler(void) {}
+int main(void) {
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+    SystemCoreClockUpdate();
+    Delay_Init();
+    GPIO_Config();
 
-void HardFault_Handler(void)
-{
-    while (1)
-    {
+    while (1) {
+        uint32_t distance = get_distance();
+        buzzer_alert(distance);
+        Delay_Ms(500);
     }
 }
