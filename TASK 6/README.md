@@ -1,4 +1,7 @@
 # **Ultrasonic Obstacle Detection Circuit using VSDSquadron Mini** 
+
+### [CLick to View Video ](https://drive.google.com/drive/folders/1yB6raVk6LlZvE4bMsrvaD0G5F_zwfKDN?usp=sharing)
+
 ## **Program**
 
 The following **Arduino/C code** measures the distance using the **HC-SR04 ultrasonic sensor** and triggers the **active buzzer** when an obstacle is detected within **50 cm**.  
